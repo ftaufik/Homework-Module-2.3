@@ -7,8 +7,11 @@ const app = express();
 mongoose.set("strictQuery", false);
 mongoose.connect('mongodb://localhost:27017/db_song');
 
-
-const { indexPage, createSongForm, createSongPage } = require('./controller/controller');
+const { 
+    indexPage, 
+    createSongForm, 
+    createSongPage 
+} = require('./controller/controller');
 
 const { 
     createSong,
@@ -40,7 +43,6 @@ const upload = multer({ storage });
 // =-=-=-= VIEWS =-=-=-=
 app.get('/', indexPage);
 app.get('/create-song', createSongPage);
-app.post('/api/v1/songs/create', upload.single('song'), urlEncoded, createSongForm);
 
 // =-=-=-= API =-=-=-=
 app.post('/api/songs/create', jsonParser, createSong);
@@ -49,6 +51,9 @@ app.get('/api/songs/:id', jsonParser, getOneSong);
 app.put('/api/songs/edit/:id', jsonParser, updateSong);
 app.delete('/api/songs/delete/:id', jsonParser, deleteSong);
 app.put('/api/songs/play/:id', jsonParser, handlePlayCount);
+
+// =-=-=-= API V1 =-=-=-=
+app.post('/api/v1/songs/create', upload.single('song'), urlEncoded, createSongForm);
 
 
 

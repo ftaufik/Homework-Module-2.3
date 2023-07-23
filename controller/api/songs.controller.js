@@ -35,7 +35,7 @@ const getAllSong = async (req, res) => {
 
 const getOneSong = async (req, res) => {
     try {
-        const {id} = req.paramss
+        const {id} = req.params
         const song = await SongsModel.findById(id);
 
         if(!song){
